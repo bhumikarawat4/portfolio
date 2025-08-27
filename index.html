@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhumika • Portfolio</title>
+  <meta name="description" content="Bhumika — Fresher Python developer portfolio. Projects, skills, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ————— CSS RESET (trimmed) ————— */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img, picture, video, canvas, svg { display: block; max-width: 100%; }
+    input, button, textarea, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ————— THEME ————— */
+    :root {
+      --bg: #0b0f17;
+      --panel: #101624;
+      --panel-2: #0e1421;
+      --text: #e6e9ef;
+      --muted: #a8b0bf;
+      --brand: #7c5cff; /* primary accent */
+      --brand-2: #38bdf8; /* secondary accent */
+      --ring: rgba(124, 92, 255, 0.35);
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-lg: 24px;
+      --container: 1120px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -20%, rgba(124,92,255,0.12), transparent 60%),
+                  radial-gradient(1200px 800px at -20% 30%, rgba(56,189,248,0.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container { width: min(100%, var(--container)); margin: 0 auto; padding: 0 20px; }
+
+    /* ————— Utility ————— */
+    .chip { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem .7rem; border:1px solid #1b2437; background:linear-gradient(180deg, #0f1523, #0c111c); border-radius:999px; color:var(--muted); font-size:.85rem; }
+    .tag { display:inline-block; padding:.35rem .6rem; border-radius:999px; background:#121a2b; border:1px solid #1a2540; color:#c9d3e7; font-size:.8rem; }
+    .btn { display:inline-flex; gap:.5rem; align-items:center; padding:.8rem 1rem; border-radius:12px; background:linear-gradient(180deg, #8366ff, #6f54ff); color:white; font-weight:600; border:1px solid rgba(131,102,255,.3); box-shadow: 0 6px 16px rgba(124,92,255,.35); transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(124,92,255,.45); }
+    .btn.ghost { background:transparent; border:1px solid #26324b; color:#d8def0; box-shadow:none; }
+    .btn.ghost:hover { background:#121a2b; }
+
+    .section { padding: 90px 0; }
+    .grid { display:grid; gap: 22px; }
+
+    header.nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(120%) blur(8px);
+      background: linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.5));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-wrap { display:flex; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:.7rem; font-weight:800; letter-spacing:.2px; }
+    .logo { width:34px; height:34px; border-radius:10px; background: linear-gradient(135deg, #7c5cff, #38bdf8); box-shadow: inset 0 0 18px rgba(255,255,255,.18); }
+    nav a { padding:10px 12px; color:#ccd4e6; border-radius:10px; }
+    nav a:hover { background:#0f1626; color:white; }
+
+    /* Mobile nav (CSS-only) */
+    #nav-toggle { display:none; }
+    .hamburger { display:none; width:44px; height:44px; border-radius:12px; border:1px solid #1c2740; align-items:center; justify-content:center; }
+    .hamburger span { width:20px; height:2px; background:#d7def0; position:relative; display:block; }
+    .hamburger span::before, .hamburger span::after { content:""; position:absolute; width:20px; height:2px; background:#d7def0; left:0; }
+    .hamburger span::before { top:-6px; }
+    .hamburger span::after { top:6px; }
+    .nav-links { display:flex; gap:4px; }
+    @media (max-width: 820px){
+      .hamburger { display:flex; }
+      .nav-links { display:none; position:absolute; left:20px; right:20px; top:64px; background:#0d1322; border:1px solid #1a2540; border-radius:14px; padding:8px; flex-direction:column; box-shadow: var(--shadow); }
+      #nav-toggle:checked ~ .nav-links { display:flex; }
+    }
+
+    /* Hero */
+    .hero { display:grid; gap:28px; grid-template-columns: 0.7fr 1.3fr; align-items:center; }
+    .hero-card { background: linear-gradient(180deg, #0e1524, #0b1120); border:1px solid #1a2540; border-radius: var(--radius-lg); padding:28px; box-shadow: var(--shadow); }
+    .hero h1 { font-size: clamp(28px, 4.5vw, 56px); line-height:1.1; margin: 10px 0 12px; }
+    .hero p { color: var(--muted); font-size: clamp(15px, 2.2vw, 18px); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top: 18px; }
+    .hero-badge { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+
+    .stats { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    .stat { background: linear-gradient(180deg, #0e1524, #0b1120); border:1px solid #1a2540; border-radius: 18px; padding:18px; text-align:center; }
+    .stat .num { font-size: 26px; font-weight:800; }
+    .stat .label { color: var(--muted); font-size: 14px; }
+
+    /* Section titles */
+    .section-title { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; }
+    .section-title h2 { font-size: clamp(22px, 3.2vw, 32px); margin:0; }
+
+    /* About */
+    .about { display:grid; gap:22px; grid-template-columns: 1fr 1fr; }
+    .about .card { background: linear-gradient(180deg, #0f1627, #0b1120); border:1px solid #1a2540; border-radius: var(--radius); padding:20px; }
+    .about p { color:#c7d0e5; }
+
+    /* Skills */
+    .skills { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:16px; }
+    .skill { background:linear-gradient(180deg, #0e1524, #0b1120); border:1px solid #1a2540; border-radius:14px; padding:16px; }
+    .skill h4 { margin:0 0 8px; }
+    .pill { display:inline-block; padding:.35rem .6rem; border-radius:999px; background:#11182a; border:1px solid #1a2540; font-size:.8rem; color:#d5ddf0; margin:4px 6px 0 0; }
+
+
+    /* Timeline */
+    .timeline { position:relative; padding-left:26px; }
+    .timeline::before { content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:#203055; border-radius:2px; }
+    .tl-item { margin: 0 0 16px; position:relative; }
+    .tl-item::before { content:""; position:absolute; left:-12px; top:6px; width:10px; height:10px; background:linear-gradient(135deg, #7c5cff, #38bdf8); border-radius:50%; box-shadow:0 0 0 3px rgba(124,92,255,.25); }
+    .tl-item h4 { margin:0 0 6px; }
+    .tl-item .when { color:var(--muted); font-size:.95rem; }
+
+    /* Contact */
+    .contact { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
+    .contact .card { background: linear-gradient(180deg, #0e1524, #0b1120); border:1px solid #1a2540; border-radius:18px; padding:18px; }
+    .contact form { display:grid; gap:10px; }
+    .field { display:grid; gap:6px; }
+    .field label { color:#cfd7ea; font-size:.95rem; }
+    .field input, .field textarea { background:#0d1424; border:1px solid #1b2746; border-radius:12px; padding:12px 12px; color:#e7ecf8; }
+    .field input:focus, .field textarea:focus { outline:none; border-color:#2b3b63; box-shadow: 0 0 0 4px var(--ring); }
+    textarea { min-height:120px; resize: vertical; }
+
+    /* Footer */
+    footer { padding: 26px 0 50px; color:#98a5c2; }
+    .foot { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; border-top:1px solid #1a2540; padding-top:18px; }
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .hero { grid-template-columns: 0.6fr 1.1fr; }
+      .contact { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .projects { grid-template-columns: repeat(2, 1fr); }
+      .skills { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px){
+        .hero{
+            grid-template-columns: 1fr; 
+        }
+      .projects { grid-template-columns: 1fr; }
+      .skills { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width:720px) {
+        
+    }
+  </style>
+</head>
+<body>
+  <!-- ————— NAV ————— -->
+  <header class="nav">
+    <div class="container nav-wrap">
+      <div class="brand">
+        <h1>Bhumika Rawat</h1>
+      </div>
+
+      <input type="checkbox" id="nav-toggle" />
+      <label for="nav-toggle" class="hamburger" aria-label="Open menu"><span></span></label>
+
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ————— HERO ————— -->
+  <section class="section">
+    <div class="container hero">
+        <div>
+        <img src="my.jpg" alt="pic" style="border-radius: 3%;"> </div>
+      <div class="hero-card">
+        <!-- <span class="chip">👋 Hi, I’m Bhumika • Fresher Python Developer</span> -->
+        <h1>Hi, I’m Bhumika • Fresher Python Developer</h1>
+        <p>
+          BCA student transitioning into a Python + Web developer role. Comfortable with HTML & CSS; learning modern JavaScript and sharpening DSA & OOP basics.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="https://github.com/bhumikarawat4">View Projects</a>
+          <a class="btn ghost" href="#contact">Contact Me</a>
+          <a class="btn ghost" href="resume.pdf" download>Download Resume</a>
+        </div>
+        <!-- <div class="hero-badge">
+          <span class="tag">Open to: Internships</span>
+          <span class="tag">Location: India</span>
+          <span class="tag">Email: bhumikarawat004@gmail.com</span>
+        </div> -->
+      </div>
+      
+        <!-- <div class="stat">
+          <div class="num">Python</div>
+          <div class="label">Primary Language</div>
+        </div>
+        <div class="stat">
+          <div class="num">HTML • CSS</div>
+          <div class="label">Frontend Basics</div>
+        </div>
+        <div class="stat">
+          <div class="num">JS</div>
+          <div class="label">Learning Now</div>
+        </div> -->
+     
+    </div>
+  </section>
+
+  <!-- ————— ABOUT ————— -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>About</h2>
+        <span class="chip">Quick intro</span>
+      </div>
+      <div class="about">
+        <div class="card">
+          <p>
+            I’m a BCA student and an aspiring Python developer. Right now, I’m focusing on strengthening JavaScript fundamentals, OOP in Python, and core DSA.
+          </p>
+          <p>
+            My goal is to land a Python/Frontend internship where I can contribute and grow.
+          </p>
+        </div>
+        <div class="card">
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div><strong>Based in:</strong><br> India</div>
+            <div><strong>Role:</strong><br> Fresher / Intern</div>
+            <div><strong>Looking for:</strong><br> Python Dev / Web Dev Intern</div>
+            <div><strong>Email:</strong><br> bhumikarawat004@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————— SKILLS ————— -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Skills</h2>
+        <span class="chip">What I use & learn</span>
+      </div>
+      <div class="skills">
+        <div class="skill">
+          <h4>Languages</h4>
+          <span class="pill">Python</span>
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript (learning)</span>
+        </div>
+        <div class="skill">
+          <h4>Core</h4>
+          <span class="pill">OOP Basics</span>
+          <span class="pill">DSA (learning)</span>
+          <span class="pill">Git & GitHub</span>
+        </div>
+        <div class="skill">
+          <h4>Frontend</h4>
+          <span class="pill">Responsive Layouts</span>
+          <span class="pill">Flexbox & Grid</span>
+        </div>
+        <div class="skill">
+          <h4>Soft Skills</h4>
+          <span class="pill">Communication</span>
+          <span class="pill">Quick Learner</span>
+          <span class="pill">Problem Solving</span>
+          <span class="pill">Adaptability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ————— EDUCATION / TIMELINE ————— -->
+  <section id="education" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Education & Learning</h2>
+        <span class="chip">learning</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <h4>Bachelor of Computer Applications (BCA)</h4>
+          <div class="when">Year — 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————— CONTACT ————— -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <span class="chip">Let’s work together</span>
+      </div>
+      <div class="contact">
+        <div class="card">
+          <form action="#" method="post" onsubmit="return false">
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" placeholder="Enter your name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Enter your email" />
+            </div>
+            <div class="field">
+              <label for="msg">Message</label>
+              <textarea id="msg" placeholder="Write your message"></textarea>
+            </div>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Find me online</h3>
+          
+          <div class="grid" style="grid-template-columns: 1fr;">
+            <a class="btn ghost" href="https://github.com/bhumikarawat4" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn ghost" href="https://www.linkedin.com/in/bhumika-rawat-471b38313 " target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn ghost" href="mailto:bhumikarawat004@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————— FOOTER ————— -->
+  <footer>
+    <div class="container foot">
+      <div>© <span id="year"></span> Bhumika Rawat. Built with pure HTML + CSS.</div>
+    </div>
+  </footer>
+
+  <!-- script just for year -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
